@@ -1,18 +1,18 @@
-package projectA;
-
+package projectC;
 
 import projectB.ProjectB;
 
-public class ProjectA {
+public class ProjectC {
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new ProjectA().printProjectA();
+		new ProjectC().printProjectA();
 		new ProjectB().printProjectB();
 
 	}
 
 	public void printProjectA() {
-		System.out.println("In project A");
+		System.out.println("In project C");
 	}
 	
 }

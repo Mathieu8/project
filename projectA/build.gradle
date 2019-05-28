@@ -11,14 +11,12 @@ plugins {
     id 'java-library'
 }
 
-repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
+apply plugin: 'application'
 
 dependencies {
-	implementation ':projectB'
+	//implementation ':projectB'
+	compile project(':projectB')
+	compile 'log4j:log4j:1.2.17'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -29,3 +27,49 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
+
+project(':projectA'){
+	apply plugin: 'java'
+
+	repositories {
+    	// Use jcenter for resolving your dependencies.
+    	// You can declare any Maven/Ivy/file repository here.
+    	jcenter()
+    	mavenCentral()
+	}
+
+}
+project(':projectB'){
+	apply plugin: 'java'
+
+	repositories {
+    	// Use jcenter for resolving your dependencies.
+    	// You can declare any Maven/Ivy/file repository here.
+    	jcenter()
+    	mavenCentral()
+	}
+}
+
+repositories {
+    	// Use jcenter for resolving your dependencies.
+    	// You can declare any Maven/Ivy/file repository here.
+    	jcenter()
+    	mavenCentral()
+	}
+
+mainClassName = 'projectA.projectA'
+
+task copyLicense {
+    outputs.file new File("$buildDir/LICENSE")
+    doLast {
+        copy {
+            from "LICENSE"
+            into "$buildDir"
+        }
+    }
+}
+ 
+applicationDistribution.from(copyLicense) {
+    into ""
+}
+
